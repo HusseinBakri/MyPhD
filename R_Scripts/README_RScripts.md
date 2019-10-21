@@ -1,4 +1,4 @@
-#R scripts for graphs and stat
+# R scripts for graphs and stat
 All R graphs here will outputted to  LaTeX. Please include in your LateX document, the package tikz 
 by  \usepackage{tikz} in the document preamble. You might need to add this also 
 ```
@@ -10,7 +10,7 @@ package 'xtable' for inserting any table produced by R into LateX thus automatic
 Please you need to know the """"width""" of your Latex colum in case of a 2 colums paper
 The TeX Files that would be generated from R Studio are usually in the default workspace of RStudio. You can retrieve the working directory by getwd()
 
-##Example General Usage
+## General Usage
 ```
 library(tikzDevice)
 tikz(file = 'myPlot.tex', width = 7, height = 7, onefile=TRUE, bg="transparent",fg="black", pointsize=10,... )
@@ -57,4 +57,25 @@ We can try R Deducer (another GUI for R) {install.packages(c("JGR","Deducer","De
 ```
 library(JGR)
 JGR()
+```
+
+## Explanation of par(mar=c(3.5, 3.5, 2, 1))
+
+par() is a parametric function that is very very important.
+```
+par(mar=c(5.1, 4.1, 4.1, 2.1), mgp=c(3, 1, 0), las=0)
+```
+The par function sets or adjusts plotting parameters. Here we consider the following three parameters: margin size (mar), axis label locations (mgp), and axis label orientation (las).
+* mar – A numeric vector of length 4, which sets the margin sizes in the following order: bottom, left, top, and right. The default is c(5.1, 4.1, 4.1, 2.1).
+* mgp – A numeric vector of length 3, which sets the axis label locations relative to the edge of the inner plot window. The first value represents the location the labels (i.e. xlab and ylab in plot), the second is the tick-mark labels, and third is the tick marks. The default is c(3, 1, 0).
+* las – A numeric value indicating the orientation of the tick mark labels and any other text added to a plot after its initialization. The options are as follows: always parallel to the axis (the default, 0), always horizontal (1), always perpendicular to the axis (2), and always vertical (3).
+
+To retrieve your defaults for your graphs:
+```
+par("mar")
+[1] 5.1 4.1 4.1 2.1		=> Defaults
+> par("mgp")
+[1] 3 1 0				=> Defaults
+> par("las")
+[1] 0					=> Defaults
 ```
