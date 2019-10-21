@@ -1,6 +1,8 @@
 # R scripts for graphs and stat
 All R graphs here will outputted to  LaTeX. Please include in your LateX document, the package tikz 
-by  \usepackage{tikz} in the document preamble. You might need to add this also 
+by  \usepackage{tikz} in the LaTeX document preamble. You might need to add this also 
+
+On LaTeX side:
 ```
 \usetikzlibrary{positioning,shadows.blur}
 ```
@@ -76,10 +78,14 @@ write.csv(MyData, file = "MyData.csv", row.names=FALSE, na="")
 ```
 
 ### xlsx R package method
-Do not forget to install the R xlsx package.
+Do not forget to install the R xlsx package by using install.packages("xlsx").
+
 #### Reading CSV/Excel
 ```
-
+library(xlsx)
+myfile <- system.file("data", "myData.xlsx", package = "xlsx")
+# Read from 1st worksheet (there is header)
+myData <- read.xlsx(myfile, 1, header=TRUE) 
 ```
 #### Writing CSV/Excel
 ```
