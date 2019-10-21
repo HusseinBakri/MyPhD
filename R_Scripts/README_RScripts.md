@@ -10,7 +10,7 @@ package 'xtable' for inserting any table produced by R into LateX thus automatic
 Please you need to know the """"width""" of your Latex colum in case of a 2 colums paper
 The TeX Files that would be generated from R Studio are usually in the default workspace of RStudio. You can retrieve the working directory by getwd()
 
-## General Usage
+## To LaTeX - General Usage
 ```
 library(tikzDevice)
 tikz(file = 'myPlot.tex', width = 7, height = 7, onefile=TRUE, bg="transparent",fg="black", pointsize=10,... )
@@ -24,7 +24,9 @@ tikz(file = 'myPlot.tex', width = 2.75,height = 2.75)
 plot( 1, 1, main = '\\LaTex\\ is $\\int e^{xy}$' )
 dev.off()
 ```
-Always include dev.off() when you finish
+Always include dev.off() when you finish. Sometimes I include dev.off() two times to make things work.
+
+Sometimes you need to play with the par() function to fit the plot well (please see the section about par() later in this documentation).
 
 On side of LaTeX, you include your TeX files in the right place that you want
 It is advisable to put \include in a \begin{figure} -- \end{figure} block and you should not include the extension .tex
@@ -36,11 +38,14 @@ It is advisable to put \include in a \begin{figure} -- \end{figure} block and yo
 \caption{}
 \end{figure}
 ```
-One problem solved by this is the page break normally created in Latex when not inlucding it in a figure
+One problem solved by this is the page break normally created in Latex when not inlucding it in a figure.
 
-***For loading Excel files***
+## For loading Excel/CSV files
+### XLConnect R package method
+Do not forget to install the R XLConnect package. 
 
-Install XLConnect and xlsx packages into R. The following code show you how to load an Excel file you choose
+#### Reading data from CSV/Excel files
+The following code shows you how to load an Excel file via XLConnect R Package
 ```
 library(XLConnect)
 library(plotrix)
@@ -48,15 +53,39 @@ theData <- readWorksheet(loadWorkbook(file.choose()),sheet=1, header = TRUE)
 attach(theData)
 ```
 
-You can try also the R Commander (GUI interface for R) which in my opinion is not effective
+### sqldf R package method
+Do not forget to install the R sqldf package.
+
+#### Reading CSV/Excel (usually filtered by SQL queries)
+The following code reads from a CSV containing your data and then storing a selected information (via a SQL query) into a SQLite database - How cool?
 ```
-library(Rcmdr)
+library(sqldf)
+
+read.csv.sql("myData.csv", sql = c("attach 'data.sqlite' as new", "create table new.MyData as select * from file"))
+MyData <- sqldf("select * from dfNoInt where ModelVersionName LIKE '%Achavanich%'")
+```
+Now you can harness the power of SQL to create any complex queries that suits your need...
+
+#### Writing CSV/Excel
+```
+library(sqldf)
+MyData <- sqldf("select * from dfNoInt where ModelVersionName LIKE '%Achavanich%'")
+
+# Write data as csv in working dir
+write.csv(MyData, file = "MyData.csv", row.names=FALSE, na="")  
 ```
 
-We can try R Deducer (another GUI for R) {install.packages(c("JGR","Deducer","DeducerExtras"))}
+### xlsx R package method
+Do not forget to install the R xlsx package.
+#### Reading CSV/Excel
 ```
-library(JGR)
-JGR()
+
+```
+#### Writing CSV/Excel
+```
+##Change working directory and save as xlsx
+library(xlsx)
+write.xlsx(myRData, "RData.xlsx")
 ```
 
 ## Explanation of par(mar=c(3.5, 3.5, 2, 1))
