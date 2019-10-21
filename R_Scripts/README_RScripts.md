@@ -1,4 +1,4 @@
-#R scripts for graphs and stat#
+#R scripts for graphs and stat
 All R graphs here will outputted to  LaTeX. Please include in your LateX document, the package tikz 
 by  \usepackage{tikz} in the document preamble. You might need to add this also 
 ```
