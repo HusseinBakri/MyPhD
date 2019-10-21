@@ -76,10 +76,10 @@ xtable(summary(dfWithInt),caption = "Summary Statistics of XYZ in LaTeX yey!")
 print(summary(dfWithInt),caption = "Summary Statistics of XYZ in LaTeX yey!"), type="latex", file="Table.tex")
 ```
 ### Saving ggplot2 to LaTeX, pdf, SVG, PNG and other formats
-Few notes on ***ggplot2***: Any ggplot2 graph can be saved using the saving feature of ggsave() which can export the plot into many useful formats including LaTeX. Examples:
+Few notes on ***ggplot2***: Any ggplot2 graph can be saved using the saving feature of ggsave() which can export the plot into many useful formats including LaTeX. You can specify width, height and dpi resolution of images. Examples:
 
 ```
-ggsave(file='GGPlot.png', plot=GGPlot, width=6, height=4)
+ggsave(file='GGPlot.png', plot=GGPlot, width=6, height=4, dpi = 600)
 ggsave(file='GGPlot.pdf', plot=GGPlot, width=6, height=4)
 ggsave(file='GGPlot.svg', plot=GGPlot, width=6, height=4)
 
