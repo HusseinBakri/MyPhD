@@ -1,4 +1,4 @@
-#R scripts for graphs and stat
+#R scripts for graphs and stat#
 All R graphs here will outputted to  LaTeX. Please include in your LateX document, the package tikz 
 by  \usepackage{tikz} in the document preamble. You might need to add this also 
 ```
@@ -10,7 +10,7 @@ package 'xtable' for inserting any table produced by R into LateX thus automatic
 Please you need to know the """"width""" of your Latex colum in case of a 2 colums paper
 The TeX Files that would be generated from R Studio are usually in the default workspace of RStudio. You can retrieve the working directory by getwd()
 
-##Example General Usage##
+##Example General Usage
 ```
 library(tikzDevice)
 tikz(file = 'myPlot.tex', width = 7, height = 7, onefile=TRUE, bg="transparent",fg="black", pointsize=10,... )
