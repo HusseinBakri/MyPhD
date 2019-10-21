@@ -1,4 +1,10 @@
 # R scripts for graphs and stat
+I have wrote several very well received blog articles on my official website on how to marry LaTeX & R. Please view the following articles to learn how. This also helps you understand the R scripts in this repository.
+* [Part 1](http://husseinbakri.org/the-marriage-between-r-and-latex-part-1/ "R and LaTeX")
+* [Part 2](http://husseinbakri.org/the-marriage-between-r-and-latex-part-2/ "R and LaTeX")
+* [Part 3](http://husseinbakri.org/the-marriage-between-r-and-latex-part-3-xtable-package/ "R xtable and LaTeX")
+* [Part 4](http://husseinbakri.org/the-marriage-between-r-and-latex-part-4-r-code-inside-latex/ "R and LaTeX")
+
 All R graphs here will outputted to  LaTeX. Please include in your LateX document, the package tikz 
 by  \usepackage{tikz} in the LaTeX document preamble. You might need to add this also 
 
@@ -13,6 +19,8 @@ Please you need to know the """"width""" of your Latex colum in case of a 2 colu
 The TeX Files that would be generated from R Studio are usually in the default workspace of RStudio. You can retrieve the working directory by getwd()
 
 ## To LaTeX - General Usage
+
+### R graphs to LaTeX tikz code
 ```
 library(tikzDevice)
 tikz(file = 'myPlot.tex', width = 7, height = 7, onefile=TRUE, bg="transparent",fg="black", pointsize=10,... )
@@ -41,6 +49,32 @@ It is advisable to put \include in a \begin{figure} -- \end{figure} block and yo
 \end{figure}
 ```
 One problem solved by this is the page break normally created in Latex when not inlucding it in a figure.
+
+### R data frames or R tables into Latex code
+```
+library(xtable)
+
+# Example 1
+dfWithInt <- data.frame(Version, Interaction)
+dfTable <- table(dfWithInt)
+ftable(dfWithInt) 
+xtable(dfTable, caption = "XYZ")
+
+#Summary of this table
+xtable(summary(dfTable),caption = "XYZ")
+
+#Write the Latex Table code to a file
+print(xtable(dfTable, caption = "XYZ XYZ"), type="latex", file="Table.tex")
+
+###problem with the above is the caption above the table //You have to change and tweak inside Latex ####
+
+# Example 2
+summary(dfWithInt)
+xtable(summary(dfWithInt),caption = "Summary Statistics of XYZ in LaTeX yey!")
+
+# to spit LaTeX code into a file
+print(summary(dfWithInt),caption = "Summary Statistics of XYZ in LaTeX yey!"), type="latex", file="Table.tex")
+```
 
 ## For loading Excel/CSV files
 ### XLConnect R package method
